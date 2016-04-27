@@ -4,8 +4,9 @@
 }
 
 @using System.Security.Claims
+@model ICollection<FlikrClone.Models.Image>
 
-<h2>Authentication with Identity</h2>
+<h1>Flikr Clone</h1>
 <hr />
 @if (User.IsSignedIn())
 {
@@ -20,4 +21,12 @@ else
 {
     <p>@Html.ActionLink("Register", "Register")</p>
     <p>@Html.ActionLink("Log in", "Login")</p>
+}
+<hr />
+@*view all images here*@
+<h4>Here are all of our images:</h4>
+
+@foreach(var imageList in Model)
+{
+    <img src=@Html.DisplayFor(model => imageList.Url)/>
 }

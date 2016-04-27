@@ -5,7 +5,7 @@
 @model IEnumerable<FlikrClone.Models.Image>
 @using System.Security.Claims
 
-<h2>here are all of your images, @User.GetUserName()</h2>
+<h2>Here are all of your images, @User.GetUserName()</h2>
 <hr />
 
 @if (Model.Any())
@@ -22,7 +22,8 @@
 }
 else
 {
-    <p>No tasks have been added yet!</p>
+    <p>No images have been added yet!</p>
 }
 
 @Html.ActionLink("Create new", "Create")
+@Html.ActionLink("Back to homepage", "Index", "Account")
