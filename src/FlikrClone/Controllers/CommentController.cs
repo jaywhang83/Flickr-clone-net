@@ -6,7 +6,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authorization;
 using FlikrClone.Models;
 using Microsoft.AspNet.Identity;
-
+using Microsoft.AspNet.Mvc.Rendering;
 
 namespace FlikrClone.Controllers
 {
@@ -30,6 +30,19 @@ namespace FlikrClone.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Create()
+        {
+            ViewBag.ImageId = new SelectList(_db.Images, "ImageId", "Description");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Comment comment)
+        {
+            _db.Comments.Add(comment);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Image");
         }
     }
 }

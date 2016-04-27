@@ -11,12 +11,14 @@
 @if (Model.Any())
 {
     
-        @foreach (var listImage in Model)
-        {
-            <img src=@Html.DisplayFor(modelImage => listImage.Url) alt=@Html.DisplayFor(modelImage => listImage.Description)>
-            <p>@Html.DisplayFor(modelImage => listImage.Description)</p>
-        }
-    
+    @foreach (var listImage in Model)
+    {
+        <img src="@Html.DisplayFor(modelImage => listImage.Url)" alt=@Html.DisplayFor(modelImage => listImage.Description)>
+        <p>@Html.DisplayFor(modelImage => listImage.Description) @Html.ActionLink("Details", "Details", new { id = listImage.ImageId })</p>
+        <hr />
+        
+     }
+
 }
 else
 {

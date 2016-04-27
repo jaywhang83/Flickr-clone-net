@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model FlikrClone.Models.Comment
+
+<h2>Add a new image</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    @*@Html.HiddenFor(model => model.ImageId)*@
+    @Html.LabelFor(model => model.Content)
+    @Html.EditorFor(model => model.Content)
+
+    @Html.LabelFor(model => model.ImageId)
+    @Html.DropDownList("ImageId")
+
+    <input type="submit" value="Create" />
+}
+@Html.ActionLink("Back to Image Details", "Details", "Image");

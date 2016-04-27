@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model FlikrClone.Models.Image
+
+
+    <h2>Details</h2>
+    <hr />
+    <img src=@Html.DisplayFor(model => model.Url) alt=@Html.DisplayFor(model => model.Description)>
+    <br />
+@foreach (var comment in Model.Comments)
+{
+    <p>@Html.DisplayFor(model => comment.Content)</p>
+}
+    @Html.DisplayFor(model => model.Description)
+    <p>@Html.ActionLink("Add comment", "Create", "Comment")</p>
+    <p>@Html.ActionLink("Back to list", "Index")</p>

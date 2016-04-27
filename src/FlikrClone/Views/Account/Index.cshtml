@@ -10,6 +10,7 @@
 @if (User.IsSignedIn())
 {
     <p>Hello @User.GetUserName()!</p>
+    @Html.ActionLink("View your images", "Index", "Image")
     @using (Html.BeginForm("LogOff", "Account"))
     {
         <input type="submit" class="btn btn-default" value="Log out" />

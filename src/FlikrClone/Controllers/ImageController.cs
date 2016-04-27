@@ -45,5 +45,12 @@ namespace FlikrClone.Controllers
             var currentUser = await _userManager.FindByIdAsync(User.GetUserId());
             return View(_db.Images.Where(x => x.User.Id == currentUser.Id));
         }
+
+        public IActionResult Details(int id)
+        {
+            var thisImage = _db.Images.FirstOrDefault(images => images.ImageId == id);
+            thisImage.Comments = _db.Comments.Where(x => x.ImageId == id).ToList();
+            return View(thisImage);
+        }
     }
 }
