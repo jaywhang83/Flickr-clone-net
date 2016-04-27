@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Images";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<FlikrClone.Models.Image>
+@using System.Security.Claims
+
+<h2>here are all of your images, @User.GetUserName()</h2>
+<hr />
+
+@if (Model.Any())
+{
+    
+        @foreach (var listImage in Model)
+        {
+            <img src=@Html.DisplayFor(modelImage => listImage.Url) alt=@Html.DisplayFor(modelImage => listImage.Description)>
+            <p>@Html.DisplayFor(modelImage => listImage.Description)</p>
+        }
+    
+}
+else
+{
+    <p>No tasks have been added yet!</p>
+}
+
+@Html.ActionLink("Create new", "Create")
