@@ -6,13 +6,21 @@
 
 <h2>Add a new image</h2>
 <hr />
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())
 {
-    @Html.LabelFor(model => model.Url)
-    @Html.EditorFor(model => model.Url)
+   <form method="post" asp-action="Create" asp-Controller="Image" enctrype="multipart/form-data">
+       <input type="file" name="files" multiple/>
+       <input type="submit" value="Upload" />
+   </form>
 
     @Html.LabelFor(model => model.Description)
     @Html.EditorFor(model => model.Description)
     <input type="submit" value="Create" />
-}
+}*@
+
+<form method="post" asp-action="Create" asp-controller="Posts" enctype="multipart/form-data">
+    <input type="file" name="files" multiple />
+    <input name="Description" />
+    <input type="submit" value="Upload" />
+</form>
 @Html.ActionLink("Back to List", "Index")

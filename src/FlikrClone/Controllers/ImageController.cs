@@ -8,6 +8,10 @@ using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using Microsoft.Data.Entity;
+using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
+using System.IO;
+using Microsoft.Net.Http.Headers;
 
 namespace FlikrClone.Controllers
 {
@@ -16,15 +20,19 @@ namespace FlikrClone.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private IHostingEnvironment _environment;
 
         public ImageController(
             UserManager<ApplicationUser> userManager,
-            ApplicationDbContext db
+            ApplicationDbContext db,
+            IHostingEnvironment environment
         )
         {
             _userManager = userManager;
             _db = db;
+            _environment = environment;
         }
+
 
         public IActionResult Create()
         {
@@ -32,13 +40,30 @@ namespace FlikrClone.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Image image)
+        public async Task<IActionResult> Create(ICollection<IFormFile> files)
         {
-            var currentUser = await _userManager.FindByIdAsync(User.GetUserId());
-            image.User = currentUser;
+            Image image = new Image();
+            image.Description = Request.Form["Description"];
+            image.User = await _userManager.FindByIdAsync(User.GetUserId());
+            //var currentUser = await _userManager.FindByIdAsync(User.GetUserId());
+            //image.User = currentUser;
+            var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+            string fileName;
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    await file.SaveAsAsync(Path.Combine(uploads, fileName));
+                    image.Url = "/uploads/" + fileName;
+                    break; 
+                }
+            }
+
             _db.Images.Add(image);
             _db.SaveChanges();
             return RedirectToAction("Index");
+            //return View();
         }
 
         public async Task<IActionResult> Index()
