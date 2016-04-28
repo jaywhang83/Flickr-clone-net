@@ -6,14 +6,36 @@
 @model FlikrClone.Models.Image
 
 
-    <h2>Details</h2>
+    <h2>Details for @Html.DisplayFor(model => model.Description)</h2>
     <hr />
-    <img src=@Html.DisplayFor(model => model.Url) alt=@Html.DisplayFor(model => model.Description)> | @Html.ActionLink("Edit Image", "Edit", new { id = Model.ImageId }) | @Html.ActionLink("Delete Image", "Delete", new { id = Model.ImageId })
+    <img src=@Html.DisplayFor(model => model.Url) alt=@Html.DisplayFor(model => model.Description)> 
     <br />
-@foreach (var comment in Model.Comments)
+    <div>@Html.ActionLink("Edit Image", "Edit", new { id = Model.ImageId }) | @Html.ActionLink("Delete Image", "Delete", new { id = Model.ImageId })</div>
+    <hr />
+@if (Model.Comments.Count > 0)
 {
-    <p>@Html.DisplayFor(model => comment.Content)</p>
+    
+    <h5>Here are the comments for your image:</h5>
+
+    @foreach (var comment in Model.Comments)
+    {
+        <ul>
+            <li>
+                <span>
+                    @Html.DisplayFor(model => comment.Content) |
+
+                    @Html.ActionLink("Edit Comment", "Edit", "Comment", new { id = comment.CommentId }) |
+                    @Html.ActionLink("Delete Comment", "Delete", "Comment", new { id = comment.CommentId })
+                </span>
+            </li>
+        </ul>
+    }
 }
-    @Html.DisplayFor(model => model.Description)
+else
+{
+    <p>There are no comments! Please add a comment!</p>
+}
+<hr />
+    
     <p>@Html.ActionLink("Add comment", "Create", "Comment")</p>
-    <p>@Html.ActionLink("Back to list", "Index")</p>
+    <p>@Html.ActionLink("Back to your images", "Index")</p>

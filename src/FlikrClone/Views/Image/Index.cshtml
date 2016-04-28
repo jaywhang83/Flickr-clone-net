@@ -14,6 +14,8 @@
     @foreach (var listImage in Model)
     {
         <img src="@Html.DisplayFor(modelImage => listImage.Url)" alt=@Html.DisplayFor(modelImage => listImage.Description)>
+        <br />
+        <br />
         <p>@Html.DisplayFor(modelImage => listImage.Description) @Html.ActionLink("Details", "Details", new { id = listImage.ImageId })</p>
         <hr />
         
@@ -25,5 +27,5 @@ else
     <p>No images have been added yet!</p>
 }
 
-@Html.ActionLink("Create new", "Create")
+@Html.ActionLink("Add Image", "Create") |
 @Html.ActionLink("Back to homepage", "Index", "Account")

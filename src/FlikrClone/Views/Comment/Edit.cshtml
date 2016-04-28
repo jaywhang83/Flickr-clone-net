@@ -1,0 +1,26 @@
+﻿@model FlikrClone.Models.Comment
+
+<html>
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+<hr />
+<h4>Edit this comment?</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.ImageId)
+    @Html.HiddenFor(model => model.CommentId)
+
+    <span>@Html.LabelFor(model => model.Content) :</span>
+    <br />
+    @Html.TextAreaFor(model => model.Content)
+    <br />
+    <input type="submit" value="Save" />
+}
+<hr />
+<p>@Html.ActionLink("Back to list", "Index", "Image")</p>
+
