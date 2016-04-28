@@ -77,7 +77,7 @@ namespace FlikrClone.Controllers
             var thisComment = _db.Comments.FirstOrDefault(comments => comments.CommentId == id);
             _db.Comments.Remove(thisComment);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Image");
         }
     }
 }
