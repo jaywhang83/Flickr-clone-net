@@ -1,0 +1,17 @@
+﻿@model FlikrClone.Models.Image
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Are you sure you want to delete this image?</h2>
+<hr />
+<img src=@Html.DisplayFor(model => model.Url) alt=@Html.DisplayFor(model => model.Description)>
+@Html.DisplayFor(model => model.Description)
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Delete" />
+}
+@Html.ActionLink("Back to List", "Index")

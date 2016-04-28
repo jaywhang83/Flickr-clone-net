@@ -8,7 +8,7 @@
 
     <h2>Details</h2>
     <hr />
-    <img src=@Html.DisplayFor(model => model.Url) alt=@Html.DisplayFor(model => model.Description)>
+    <img src=@Html.DisplayFor(model => model.Url) alt=@Html.DisplayFor(model => model.Description)> | @Html.ActionLink("Edit Image", "Edit", new { id = Model.ImageId }) | @Html.ActionLink("Delete Image", "Delete", new { id = Model.ImageId })
     <br />
 @foreach (var comment in Model.Comments)
 {

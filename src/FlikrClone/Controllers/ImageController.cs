@@ -7,6 +7,7 @@ using FlikrClone.Models;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
+using Microsoft.Data.Entity;
 
 namespace FlikrClone.Controllers
 {
@@ -51,6 +52,39 @@ namespace FlikrClone.Controllers
             var thisImage = _db.Images.FirstOrDefault(images => images.ImageId == id);
             thisImage.Comments = _db.Comments.Where(x => x.ImageId == id).ToList();
             return View(thisImage);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var thisImage = _db.Images.FirstOrDefault(images => images.ImageId == id);
+            return View(thisImage);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Image image)
+        {
+            var currentUser = await _userManager.FindByIdAsync(User.GetUserId());
+            image.User = currentUser;
+            _db.Entry(image).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var thisImage = _db.Images.FirstOrDefault(images => images.ImageId == id);
+            return View(thisImage);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            //var currentUser = await _userManager.FindByIdAsync(User.GetUserId());
+            //image.User = currentUser;
+            var thisImage = _db.Images.FirstOrDefault(images => images.ImageId == id);
+            _db.Images.Remove(thisImage);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
