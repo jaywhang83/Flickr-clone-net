@@ -37,5 +37,5 @@ else
 }
 <hr />
     
-    <p>@Html.ActionLink("Add comment", "Create", "Comment")</p>
+    <p>@Html.ActionLink("Add comment", "Create", "Comment", new { id = Model.ImageId })</p>
     <p>@Html.ActionLink("Back to your images", "Index")</p>

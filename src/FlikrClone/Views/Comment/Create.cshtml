@@ -8,12 +8,12 @@
 <hr />
 @using (Html.BeginForm())
 {
-    @*@Html.HiddenFor(model => model.ImageId)*@
+    @Html.Hidden("@ViewBag.Pic")
     @Html.LabelFor(model => model.Content)
     @Html.EditorFor(model => model.Content)
 
-    @Html.LabelFor(model => model.ImageId)
-    @Html.DropDownList("ImageId")
+    @*@Html.LabelFor(model => model.ImageId)
+    @Html.DropDownList("ImageId")*@
 
     <input type="submit" value="Create" />
 }

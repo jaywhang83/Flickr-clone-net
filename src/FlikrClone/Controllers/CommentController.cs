@@ -34,14 +34,15 @@ namespace FlikrClone.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.ImageId = new SelectList(_db.Images, "ImageId", "Description");
+            ViewBag.PicId = id;
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Comment comment)
+        public ActionResult Create(Comment comment, int id)
         {
+            comment.ImageId = id;
             _db.Comments.Add(comment);
             _db.SaveChanges();
             return RedirectToAction("Index", "Image");
