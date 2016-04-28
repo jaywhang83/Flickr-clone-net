@@ -20,7 +20,10 @@
 
 <form method="post" asp-action="Create" asp-controller="Posts" enctype="multipart/form-data">
     <input type="file" name="files" multiple />
+    <br />
+    <p>Description:</p>
     <input name="Description" />
     <input type="submit" value="Upload" />
 </form>
+<hr />
 @Html.ActionLink("Back to List", "Index")
